@@ -1,7 +1,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { YearType } from '../../types/calendar'
-
 export interface CalendarInitialState {
   calendar: YearType
 }
@@ -9,7 +8,6 @@ export interface CalendarInitialState {
 const initialState: CalendarInitialState = {
   calendar: []
 }
-
 export interface SetDayPayload {
   month: number
   day: number
@@ -30,7 +28,6 @@ const calendarSlice = createSlice({
     resetCalendar: (state, action: PayloadAction<YearType>) => {
       state.calendar = action.payload
     }
-
   }
 })
 

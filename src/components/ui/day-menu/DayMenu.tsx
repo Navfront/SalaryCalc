@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { MONTHS } from '../../../mocks/mocks'
 import { DayMenuData, togglePopup } from '../../../redux/slices/app-slice'
 import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
-import { log } from 'console'
 import { setDay } from '../../../redux/slices/calendar-slice'
 
 interface DayMenuProps {
@@ -15,7 +14,7 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
   const [extraCount, setExtraCount] = useState(3)
   const dispatch = useAppDispatch()
   const currentDay = useAppSelector(state => state.app.popup.data)
-  const { currDay, currMonth, currExtra, currActivity, currI } = currentDay as DayMenuData
+  const { currDay, currMonth, currI } = currentDay as DayMenuData
   const closePopup = (): void => {
     dispatch(togglePopup({ isOpen: false }))
   }

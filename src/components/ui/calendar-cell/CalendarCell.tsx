@@ -4,27 +4,31 @@ import workingDayIcon from '../../../assets/work.svg'
 import sickDayIcon from '../../../assets/sick.svg'
 import palmDayIcon from '../../../assets/palm.svg'
 import sandClock from '../../../assets/sandclock.svg'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren } from 'react'
 import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
 import { togglePopup } from '../../../redux/slices/app-slice'
-import { log } from 'console'
+
+import { DayType } from '../../../types/calendar'
 
 export interface DayObjectProps {
-  dayObject: {
-    month: number
-    dayIndex: number
-    day: number
-    hDay: boolean
-    activity: null | 1 | 2 | 3 | 4
-    extra: number
-    money: number
-    i: number
-  }
+  dayObject: dayObject
+}
+
+interface dayObject extends DayType {
+  month: number
+  i: number
+  dayIndex: number
+  day: number
+  hDay: boolean
+  extra: number
+  money: number
+  activity: null | 1 | 2 | 3 | 4
 }
 
 function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildren): JSX.Element {
   const isDay = !Number.isNaN(dayObject.day)
-  const dayData = useAppSelector(state => state.calendar.calendar[dayObject.month][dayObject.i])
+  const { month: m, i } = dayObject
+  const dayData = useAppSelector(state => state.calendar.calendar[m][i])
   const { activity: activityType, extra } = dayData
   const dispatch = useAppDispatch()
   const handlerCellOnClick = (): void => {
