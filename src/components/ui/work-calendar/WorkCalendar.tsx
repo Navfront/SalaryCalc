@@ -36,7 +36,7 @@ function WorkCalendar ({ title, month, ref }: WorkCalendarProps): JSX.Element {
                   month,
                   dayIndex: day.dayIndex ?? 0,
                   day: day.day ?? 0,
-                  hDay: day.hDay,
+                  hDay: day.hDay ?? false,
                   activity: day.activity ?? 0,
                   extra: day.extra ?? false,
                   money: day.money ?? 0

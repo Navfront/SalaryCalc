@@ -1,12 +1,12 @@
 export interface DayType {
-  hDay: boolean
+  hDay: boolean | null
   day: number | null
   dayIndex?: number
   month?: number
   activity?: number
   extra?: boolean
   money?: number
-  hday?: boolean
+  hday?: boolean | null
 }
 
 export type MonthType = DayType[]
