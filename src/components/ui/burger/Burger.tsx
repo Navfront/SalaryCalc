@@ -1,25 +1,22 @@
 import { StyledBurger } from './styled'
-import { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { toggleMenu } from './../../../redux/actions'
+
+import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
+import { toggleMenu } from '../../../redux/slices/app-slice'
 
 interface BurgerProps {
   size?: number
 }
 
 function Burger ({ size }: BurgerProps): JSX.Element {
-  const [isBurgerActive, setIsBurgerActive] = useState(false)
-
-  // const dispatch = useDispatch()
-  // const toggleMainMenu = useCallback(() => dispatch(), [])
+  const isMenuOpen = useAppSelector(state => state.app.isMenuOpen)
+  const dispatch = useAppDispatch()
 
   return (
     <StyledBurger aria-label='Меню настроек'
       onClick={() => {
-        setIsBurgerActive(!isBurgerActive)
-        // toggleMainMenu()
+        dispatch(toggleMenu())
       }}
-      active={isBurgerActive}
+      active={isMenuOpen}
       size={size}
     >
       <span /> <span /> <span />

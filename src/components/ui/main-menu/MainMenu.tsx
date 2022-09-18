@@ -1,11 +1,12 @@
 // import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector } from '../../../redux/reduxHooks'
 import { StyledMainMenuLayout, StyledMainMenuTitle } from './styled'
 // import { setDefaultRate, setHolidayRate } from '../../../redux/actions'
 // import { useRef } from 'react'
 // import { setExtraRate, setSickRate } from './../../../redux/actions'
 
 function MainMenu (): JSX.Element {
-  const isMenuActive = true
+  const isMenuOpen = useAppSelector(state => state.app.isMenuOpen)
   // const isMenuActive = useSelector((state) => state.appReducer.isMenuOpen);
   // const defaultRate = useSelector((state) => state.ratesReducer.defaultRate);
   // const extraRate = useSelector((state) => state.ratesReducer.extraRate);
@@ -22,8 +23,8 @@ function MainMenu (): JSX.Element {
   // const holidayRateInputRef = useRef();
   // const sickRateInputRef = useRef();
 
-  return isMenuActive
-    ? (<StyledMainMenuLayout active={isMenuActive}>
+  return isMenuOpen
+    ? (<StyledMainMenuLayout active={isMenuOpen}>
       <StyledMainMenuTitle>Настройки</StyledMainMenuTitle>
       <form
         action="#"
