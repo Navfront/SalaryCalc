@@ -1,13 +1,16 @@
 import { StyledMonthFilter } from './styled'
 import { MONTHS } from '../../../mocks/mocks'
+import dayjs from 'dayjs'
 // import { useSelector, useDispatch } from 'react-redux';
 // import { setFilterShow } from '../../../redux/actions';
 // import moment from 'moment'
+import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
+import { setFilter } from '../../../redux/slices/app-slice'
 
 function MonthFilter (): JSX.Element {
-  // const showObj = useSelector((state) => state.appReducer.monthFilter)
-  // const currentMonth = moment().month()
-  const currentMonth = 0
+  const filter = useAppSelector(state => state.app.monthFilter)
+  const currentMonth = dayjs().month()
+  const dispatch = useAppDispatch()
   // const handlerOnFilter = useDispatch()
 
   return (
@@ -16,17 +19,22 @@ function MonthFilter (): JSX.Element {
       <form action="#" method="get">
         <div className="monthFilterWrapper">
           <button type="button" onClick={() =>
-            console.log('click')
-            // handlerOnFilter(setFilterShow({ showMonth: 0, showType: 0 }))
-
+            dispatch(setFilter({
+              showMonth: 0,
+              showType: 0,
+              showOne: false
+            }))
           }>
             Все месяца
           </button>
           <button
             type="button"
             onClick={() =>
-              console.log('click')
-              // handlerOnFilter(setFilterShow({ showMonth: currentMonth, showType: 2 }))
+              dispatch(setFilter({
+                showMonth: currentMonth,
+                showType: 2,
+                showOne: true
+              }))
             }
           >
             Текущий
@@ -34,8 +42,11 @@ function MonthFilter (): JSX.Element {
           <button
             type="button"
             onClick={() =>
-              console.log('click')
-              // handlerOnFilter(setFilterShow({ showMonth: currentMonth, showType: 1 }))
+              dispatch(setFilter({
+                showMonth: currentMonth,
+                showType: 1,
+                showOne: false
+              }))
             }
           >
             Тек.+ пред.
@@ -44,47 +55,55 @@ function MonthFilter (): JSX.Element {
         <select
           size={1}
           onChange={(evt) =>
-            console.log('click')
-            // handlerOnFilter(setFilterShow({ showMonth: Number(evt.target.value), showType: 2 }))
+            dispatch(setFilter({
+              showMonth: Number(evt.currentTarget.value),
+              showType: 2,
+              showOne: false
+            }))
           }
           defaultValue={currentMonth}
         >
           {MONTHS.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <option key={index} value={index}>
+            <option key={`${index}option`} value={index}>
               {item}
             </option>
           ))}
         </select>
       </form>
-      {/* {showObj.showType > 0
-        ? (
-        <div className="monthFilterNextWrapper">
+      {filter.showType > 0
+        ? <div className="monthFilterNextWrapper">
           <button
-            disabled={showObj.showMonth === 0}
+            disabled={filter.showMonth === 0}
             type="button"
             className="buttonToLeft"
             onClick={() =>
-              console.log('click')
-              handlerOnFilter(setFilterShow({ showMonth: Number(showObj.showMonth) - 1, showType: showObj.showType }))
+              dispatch(setFilter({
+                showMonth: filter.showMonth - 1,
+                showType: filter.showType,
+                showOne: filter.showOne
+              }))
             }
           >
             Предыдущий
           </button>
           <button
-            disabled={showObj.showMonth > 10}
+            disabled={filter.showMonth > 10}
             type="button"
             className="buttonToRight"
             onClick={() =>
-              console.log('click')
-              handlerOnFilter(setFilterShow({ showMonth: Number(showObj.showMonth) + 1, showType: showObj.showType }))
+              dispatch(setFilter({
+                showMonth: filter.showMonth + 1,
+                showType: filter.showType,
+                showOne: filter.showOne
+              }))
             }
           >
             Следующий
-          </button>
-        </div>
-          )
-        : null} */}
+    </button>
+          </div >
+        : ''}
+
     </StyledMonthFilter>
   )
 }
