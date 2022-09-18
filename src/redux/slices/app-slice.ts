@@ -4,8 +4,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface PopupState {
   isOpen: boolean
   data: DayMenuData | null
-  callback: ((value: 1 | 2 | 3 | 4) => void) | null
-  extraCallback: ((value: number) => void) | null
 }
 
 export interface MonthFilterState {
@@ -22,7 +20,7 @@ export interface AppInitialState {
 }
 
 export interface DayMenuData {
-  currActivity: null | 1 | 2 | 3 | 4
+  currActivity: null | 1 | 2 | 3 | 4 | 5
   currDay: number
   currDayIndex: number
   currExtra: number
@@ -35,8 +33,6 @@ export interface DayMenuData {
 export interface TogglePopupPayload {
   isOpen: boolean
   data?: DayMenuData | null
-  callback?: ((value: 1 | 2 | 3 | 4) => void) | null
-  extraCallback?: ((value: number) => void) | null
 }
 
 export interface ToggleFilterPayload {
@@ -47,7 +43,7 @@ export interface ToggleFilterPayload {
 
 const init: AppInitialState = {
   isMenuOpen: false,
-  popup: { isOpen: false, data: null, callback: null, extraCallback: null },
+  popup: { isOpen: false, data: null },
   monthFilter: { showMonth: dayjs().month(), showType: 0, showOne: false },
   showAbout: true
 }
@@ -62,8 +58,6 @@ export const appSlice = createSlice({
     togglePopup: (state, action: PayloadAction<TogglePopupPayload>) => {
       state.popup.isOpen = action.payload.isOpen
       state.popup.data = action.payload.data ?? null
-      state.popup.callback = action.payload.callback ?? null
-      state.popup.extraCallback = action.payload.extraCallback ?? null
     },
     setFilter: (state, action: PayloadAction<ToggleFilterPayload>) => {
       state.monthFilter.showMonth = action.payload.showMonth

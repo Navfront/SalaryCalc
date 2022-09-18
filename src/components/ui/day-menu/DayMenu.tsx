@@ -5,13 +5,9 @@ import { DayMenuData, togglePopup } from '../../../redux/slices/app-slice'
 import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
 import { setDay } from '../../../redux/slices/calendar-slice'
 
-interface DayMenuProps {
-  cellActivityCallback: (value: null | 1 | 2 | 3 | 4) => void
-  cellExtraCallback: (value: number) => void
-}
-
-function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JSX.Element {
+function DayMenu (): JSX.Element {
   const [extraCount, setExtraCount] = useState(3)
+  const [montageExtraCount, setMontageExtraCount] = useState(3)
   const dispatch = useAppDispatch()
   const currentDay = useAppSelector(state => state.app.popup.data)
   const { currDay, currMonth, currI } = currentDay as DayMenuData
@@ -31,6 +27,67 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
         </div>
         <div className="dayButtonWrapper">
           <button
+            aria-label='Установить монтажные часы'
+            className="dayButton"
+            type="button"
+            onClick={() => {
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: null,
+                activity: 5,
+                i: currI
+              }))
+              closePopup()
+            }}
+          >
+            Монтаж 8ч
+          </button>
+        </div>
+        <div className="dayButtonWrapper">
+          <button
+            aria-label='Установить монтажные часы с переработкой.'
+            className="dayButton"
+            type="button"
+            onClick={() => {
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: montageExtraCount,
+                activity: 5,
+                i: currI
+              }))
+              closePopup()
+            }}
+          >
+            Монтаж Пер.: <span aria-label='Переработка на монтаже'> {montageExtraCount}ч</span>
+          </button>
+
+          <div className="plusMinusWrapper">
+            <button
+              onClick={() => {
+                setMontageExtraCount(montageExtraCount + 1)
+              }}
+              className="dayButtonPlus"
+              type="button"
+            >
+              +
+            </button>
+
+            <button
+              onClick={() => {
+                setMontageExtraCount(montageExtraCount > 0 ? montageExtraCount - 1 : montageExtraCount)
+              }}
+              className="dayButtonMinus"
+              type="button"
+            >
+              -
+            </button>
+          </div>
+        </div>
+        <div className="dayButtonWrapper">
+          <button
+            aria-label='Установить обычные 8 часов.'
             className="dayButton"
             type="button"
             onClick={() => {
@@ -44,11 +101,12 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
               closePopup()
             }}
           >
-            8 Часов
+            8 Обычные
           </button>
         </div>
         <div className="dayButtonWrapper">
           <button
+            aria-label='Установить обычные 8 часов, плюс переработка.'
             className="dayButton"
             type="button"
             onClick={() => {
@@ -62,7 +120,7 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
               closePopup()
             }}
           >
-            Переработка: <span> {extraCount}ч</span>
+            Обыч. Пер.: <span aria-label='Переработка'> {extraCount}ч</span>
           </button>
 
           <div className="plusMinusWrapper">
@@ -87,8 +145,10 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
             </button>
           </div>
         </div>
+
         <div className="dayButtonWrapper">
           <button
+            aria-label='Установить день отпуска'
             className="dayButton"
             type="button"
             onClick={() => {
@@ -107,6 +167,7 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
         </div>
         <div className="dayButtonWrapper">
           <button
+            aria-label='Установить день простоя.'
             className="dayButton"
             type="button"
             onClick={() => {
@@ -143,6 +204,7 @@ function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JS
         </div>
         <div className="dayButtonWrapper">
           <button
+            aria-label='Очистить день.'
             className="dayButton"
             type="button"
             onClick={() => {

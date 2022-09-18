@@ -1,56 +1,67 @@
-const calcSalary = (monthNumber = 0): number => {
-  // eslint-disable-next-line no-undef
-  // const result = new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     if (!localStorage.getItem('calendar') || !defaultRate) {
-  //       reject(`Ошибка подсчета ${MONTHS[monthNumber]}`)
-  //     }
-  //     const workCalendar = JSON.parse(localStorage.getItem('calendar'))
-  //     let salary = 0
+import { MONTHS } from '../mocks/mocks'
+import { RatesInitialState } from '../redux/slices/rates-slice'
+import { DayType } from './../types/calendar'
 
-  //     workCalendar[monthNumber].forEach((dayItem) => {
-  //       if (dayItem.activity > 0) {
-  //         switch (dayItem.activity) {
-  //           case 1:
-  //             if (dayItem.hDay && !dayItem.extra) {
-  //               salary = salary + Math.round(8 * holidayRate)
-  //               break
-  //             }
-  //             if (dayItem.hDay && dayItem.extra) {
-  //               salary = salary + Math.round((8 + dayItem.extra) * holidayRate)
-  //             }
-  //             salary =
-  //               dayItem.extra > 0
-  //                 ? salary + Math.round(8 * defaultRate + dayItem.extra * extraRate)
-  //                 : Math.round(salary + 8 * defaultRate)
-  //             break
+const calcSalary = async (monthNumber = 0, rates: RatesInitialState, monthData: DayType[]): Promise<string> => {
+  const { defaultRate, extraRate, sickRate, pauseRate, montageExtraRate, montageRate } = rates
 
-  //           case 2:
-  //             // болезнь
-  //             salary = salary + Math.round(((8 * defaultRate) / 100) * sickRate)
-  //             break
+  return await new Promise((resolve, reject) => {
+    if (defaultRate === 0) {
+      reject(new Error(`Ошибка подсчета ${MONTHS[monthNumber]}`))
+    }
+    let salary = 0
+    monthData.forEach((dayItem) => {
+      if (dayItem?.activity !== null && dayItem?.activity !== undefined && dayItem.activity > 0) {
+        switch (dayItem.activity) {
+          case 1:
+            // выходной день каждый обычный час - переработка
+            if (dayItem.hDay !== undefined && (dayItem.hDay ?? true) && (typeof dayItem.extra !== 'undefined')) {
+              salary = salary + Math.round(8 * extraRate + (Number(dayItem.extra) * extraRate))
+              break
+            }
 
-  //           case 3:
-  //             // отпуск
-  //             salary = salary + Math.round(8 * defaultRate)
-  //             break
+            // Обычные 8 + переработка extra
+            salary =
+                Number(dayItem.extra) > 0
+                  ? salary + Math.round(8 * defaultRate + Number(dayItem.extra) * extraRate)
+                  : Math.round(salary + 8 * defaultRate)
+            break
 
-  //           case 4:
-  //             // простой
-  //             salary = salary + Math.round(((8 * defaultRate) / 3) * 2)
-  //             break
+          case 2:
+            // болезнь
+            salary = salary + Math.round(((8 * defaultRate) / 100) * sickRate)
+            break
 
-  //           default:
-  //             break
-  //         }
-  //       }
-  //     })
+          case 3:
+            // отпуск
+            salary = salary + Math.round(8 * defaultRate)
+            break
 
-  //     resolve(`Зарплата за ${MONTHS[monthNumber]}:${salary}`)
-  //   }, 0)
-  // })
+          case 4:
+            // простой
+            console.log('простой')
 
-  return 0
+            salary = salary + Math.round((8 * pauseRate))
+            break
+
+          default:
+            // выходной день каждый монтаж час - монтаж переработка
+            if (dayItem.hDay !== undefined && (dayItem.hDay ?? true) && (typeof dayItem.extra !== 'undefined')) {
+              salary = salary + Math.round(8 * montageExtraRate + (Number(dayItem.extra) * montageExtraRate))
+              break
+            }
+
+            // монтаж 8 + монтаж переработка extra
+            salary =
+              Number(dayItem.extra) > 0
+                ? salary + Math.round(8 * montageRate + Number(dayItem.extra) * montageExtraRate)
+                : Math.round(salary + 8 * montageRate)
+            break
+        }
+      }
+    })
+    resolve(`Зарплата за ${MONTHS[monthNumber]}:${salary}`)
+  })
 }
 
 export default calcSalary

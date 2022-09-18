@@ -4,6 +4,7 @@ import workingDayIcon from '../../../assets/work.svg'
 import sickDayIcon from '../../../assets/sick.svg'
 import palmDayIcon from '../../../assets/palm.svg'
 import sandClock from '../../../assets/sandclock.svg'
+import craneIcon from '../../../assets/crane.svg'
 import { PropsWithChildren } from 'react'
 import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
 import { togglePopup } from '../../../redux/slices/app-slice'
@@ -22,7 +23,7 @@ interface dayObject extends DayType {
   hDay: boolean
   extra: number
   money: number
-  activity: null | 1 | 2 | 3 | 4
+  activity: null | 1 | 2 | 3 | 4 | 5
 }
 
 function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildren): JSX.Element {
@@ -53,12 +54,13 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
   return (
     <StyledCalendarCell aria-label='Настройки дня' onClick={handlerCellOnClick} isHday={dayObject.hDay} isDay={isDay}>
       {children}
-      {activityType === 1 ? <img width="20" height="20" src={workingDayIcon} alt="working day" /> : null}
+      {activityType === 1 ? <img width="20" height="20" src={craneIcon} alt="working day" /> : null}
       {activityType === 2 ? <img width="20" height="20" src={sickDayIcon} alt="sick day" /> : null}
       {activityType === 3 ? <img width="20" height="20" src={palmDayIcon} alt="vocation day" /> : null}
       {activityType === 4 ? <img width="20" height="20" src={sandClock} alt="waiting day" /> : null}
+      {activityType === 5 ? <img width="20" height="20" src={workingDayIcon} alt="montage day" /> : null}
 
-      {extra !== null && activityType === 1 ? <span className="extraHours">+{extra}</span> : null}
+      {extra !== null && (activityType === 1 || activityType === 5) ? <span className="extraHours">+{extra}</span> : null}
     </StyledCalendarCell>
   )
 }

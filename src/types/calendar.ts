@@ -4,7 +4,7 @@ export interface DayType {
   day?: number | null
   dayIndex?: number
   month?: number
-  activity?: null | 1 | 2 | 3 | 4
+  activity?: null | 1 | 2 | 3 | 4 | 5
   extra?: number | null
   money?: number
 }

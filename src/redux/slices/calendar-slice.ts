@@ -11,7 +11,7 @@ const initialState: CalendarInitialState = {
 export interface SetDayPayload {
   month: number
   day: number
-  activity: null | 1 | 2 | 3 | 4
+  activity: null | 1 | 2 | 3 | 4 | 5
   extra: number | null
   i?: number
 }

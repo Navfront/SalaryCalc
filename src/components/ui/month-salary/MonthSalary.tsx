@@ -1,11 +1,21 @@
 import { StyledMonthSalary } from './styled'
+import { useEffect, useState } from 'react'
+import calcSalary from './../../../api/calcSalary'
+import { useAppSelector } from '../../../redux/reduxHooks'
 
 interface MonthSalaryProps {
   month: number
 }
 
 function MonthSalary ({ month }: MonthSalaryProps): JSX.Element {
-  return <StyledMonthSalary>{0}</StyledMonthSalary>
+  const monthData = useAppSelector(state => state.calendar.calendar[month])
+  const rates = useAppSelector(state => state.rates)
+  const [salary, setSalary] = useState('Считаем...')
+
+  useEffect(() => {
+    calcSalary(month, rates, monthData).then(res => setSalary(res)).catch(console.log)
+  }, [monthData, rates])
+  return <StyledMonthSalary>{salary}</StyledMonthSalary>
 }
 
 export default MonthSalary

@@ -4,14 +4,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface RatesInitialState {
   defaultRate: number
   extraRate: number
-  holidayRate: number
+  montageRate: number
+  montageExtraRate: number
+  pauseRate: number
   sickRate: number
 }
 
 const initialState: RatesInitialState = {
-  defaultRate: 300,
-  extraRate: 400,
-  holidayRate: 400,
+  defaultRate: 350,
+  extraRate: 450,
+  montageRate: 400,
+  montageExtraRate: 500,
+  pauseRate: 250,
   sickRate: 60
 }
 
@@ -25,14 +29,21 @@ export const ratesSlice = createSlice({
     setExtraRate: (state, action: PayloadAction<number>) => {
       state.extraRate = action.payload
     },
-    setHolidayRate: (state, action: PayloadAction<number>) => {
-      state.holidayRate = action.payload
+    setMontageRate: (state, action: PayloadAction<number>) => {
+      state.montageRate = action.payload
+    },
+    setMontageExtraRate: (state, action: PayloadAction<number>) => {
+      state.montageExtraRate = action.payload
+    },
+    setPauseRate: (state, action: PayloadAction<number>) => {
+      state.pauseRate = action.payload
     },
     setSickRate: (state, action: PayloadAction<number>) => {
       state.sickRate = action.payload
     }
+
   }
 })
 
-export const { setDefaultRate, setExtraRate, setHolidayRate, setSickRate } = ratesSlice.actions
+export const { setDefaultRate, setExtraRate, setPauseRate, setSickRate, setMontageExtraRate, setMontageRate } = ratesSlice.actions
 export default ratesSlice.reducer
