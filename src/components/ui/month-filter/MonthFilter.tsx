@@ -1,9 +1,6 @@
 import { StyledMonthFilter } from './styled'
 import { MONTHS } from '../../../mocks/mocks'
 import dayjs from 'dayjs'
-// import { useSelector, useDispatch } from 'react-redux';
-// import { setFilterShow } from '../../../redux/actions';
-// import moment from 'moment'
 import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
 import { setFilter } from '../../../redux/slices/app-slice'
 
@@ -11,7 +8,6 @@ function MonthFilter (): JSX.Element {
   const filter = useAppSelector(state => state.app.monthFilter)
   const currentMonth = dayjs().month()
   const dispatch = useAppDispatch()
-  // const handlerOnFilter = useDispatch()
 
   return (
     <StyledMonthFilter>
@@ -64,7 +60,6 @@ function MonthFilter (): JSX.Element {
           defaultValue={currentMonth}
         >
           {MONTHS.map((item, index) => (
-            // eslint-disable-next-line react/no-array-index-key
             <option key={`${index}option`} value={index}>
               {item}
             </option>
