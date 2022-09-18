@@ -5,6 +5,8 @@ export interface DayType {
   month?: number
   activity?: number
   extra?: boolean
+  money?: number
+  hday?: boolean
 }
 
 export type MonthType = DayType[]

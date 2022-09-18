@@ -24,7 +24,6 @@ function Main (): JSX.Element {
         return index === filter.showMonth || index === filter.showMonth - 1
       case 2:
         return index === filter.showMonth
-
       default:
         return false
     }
