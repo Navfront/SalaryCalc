@@ -13,8 +13,8 @@ const initialState: CalendarInitialState = {
 export interface SetDayPayload {
   month: number
   day: number
-  activity: number
-  extra: boolean
+  activity: null | 1 | 2 | 3 | 4
+  extra: number
 }
 
 const calendarSlice = createSlice({

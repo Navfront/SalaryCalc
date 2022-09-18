@@ -3,8 +3,8 @@ export interface DayType {
   day: number | null
   dayIndex?: number
   month?: number
-  activity?: number
-  extra?: boolean
+  activity?: null | 1 | 2 | 3 | 4
+  extra?: number
   money?: number
   hday?: boolean | null
 }

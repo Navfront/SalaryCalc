@@ -11,6 +11,7 @@ import WorkCalendar from '../../ui/work-calendar/WorkCalendar'
 import { useAppDispatch } from './../../../redux/reduxHooks'
 import { resetCalendar } from '../../../redux/slices/calendar-slice'
 import { twentytwo } from './../../../mocks/mocks'
+import DayMenu from '../../ui/day-menu/DayMenu'
 
 function Main (): JSX.Element {
   const calendar = useAppSelector(state => state.calendar.calendar)
@@ -55,6 +56,7 @@ function Main (): JSX.Element {
             return ''
           }
           )}
+
       </Container>
     </StyledMain>
   )

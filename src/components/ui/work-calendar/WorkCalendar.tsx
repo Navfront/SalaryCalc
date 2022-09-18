@@ -37,8 +37,8 @@ function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
                   dayIndex: day.dayIndex ?? 0,
                   day: day.day ?? 0,
                   hDay: day.hDay ?? false,
-                  activity: day.activity ?? 0,
-                  extra: day.extra ?? false,
+                  activity: day.activity ?? null,
+                  extra: day.extra ?? 0,
                   money: day.money ?? 0
                 }}
                 key={`${index}cell`}

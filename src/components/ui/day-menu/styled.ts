@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
 export const StyledDayMenuWrapper = styled.section`
   width: 98%;
@@ -48,4 +48,4 @@ export const StyledDayMenuWrapper = styled.section`
       margin-left: 5px;
     }
   }
-`;
+`
