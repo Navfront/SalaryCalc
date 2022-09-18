@@ -14,14 +14,14 @@ import {
 interface WorkCalendarProps {
   title: string
   month: number
-  ref?: RefObject<HTMLElement>
+
 }
 
-function WorkCalendar ({ title, month, ref }: WorkCalendarProps): JSX.Element {
+function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
   const calendar = useAppSelector(state => state.calendar.calendar)
 
   return (
-    <StyledWorkCalendar ref={ref}>
+    <StyledWorkCalendar >
       <h3 className='visually-hidden'>График за месяц {MONTHS[month]}</h3>
       <StyledWorkCalendarFigure>
         <StyledWorkCalendarCaption>{title}</StyledWorkCalendarCaption>

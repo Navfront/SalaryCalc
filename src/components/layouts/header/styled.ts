@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import { DefaultThemeType } from './../../theme/defaultTheme'
 
 export const StyledHeader = styled.header`
-  background-color:'${({ theme }: DefaultThemeType) => (theme.colors.bgLAccent)};';
+  background-color: ${({ theme }: DefaultThemeType) => theme.colors.bgLAccent};
   position: fixed;
   width: 100%;
   z-index: 2;
