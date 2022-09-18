@@ -1,27 +1,18 @@
-// import { useSelector, useDispatch } from 'react-redux'
 import { useAppSelector } from '../../../redux/reduxHooks'
 import { StyledMainMenuLayout, StyledMainMenuTitle } from './styled'
-// import { setDefaultRate, setHolidayRate } from '../../../redux/actions'
-// import { useRef } from 'react'
-// import { setExtraRate, setSickRate } from './../../../redux/actions'
+import { useAppDispatch } from './../../../redux/reduxHooks'
+import { useRef, MutableRefObject } from 'react'
+import { setDefaultRate, setExtraRate, setHolidayRate, setSickRate } from '../../../redux/slices/rates-slice'
 
 function MainMenu (): JSX.Element {
   const isMenuOpen = useAppSelector(state => state.app.isMenuOpen)
-  // const isMenuActive = useSelector((state) => state.appReducer.isMenuOpen);
-  // const defaultRate = useSelector((state) => state.ratesReducer.defaultRate);
-  // const extraRate = useSelector((state) => state.ratesReducer.extraRate);
-  // const holidayRate = useSelector((state) => state.ratesReducer.holidayRate);
-  // const sickRate = useSelector((state) => state.ratesReducer.sickRate);
+  const { defaultRate, extraRate, holidayRate, sickRate } = useAppSelector(state => state.rates)
+  const dispatch = useAppDispatch()
 
-  // const dispatchSetDefaultRate = useDispatch();
-  // const dispatchSetExtraRate = useDispatch();
-  // const dispatchSetHolidayRate = useDispatch();
-  // const dispatchSetSickRate = useDispatch();
-
-  // const defaultRateInputRef = useRef();
-  // const extraRateInputRef = useRef();
-  // const holidayRateInputRef = useRef();
-  // const sickRateInputRef = useRef();
+  const defaultRateInputRef = useRef() as MutableRefObject<HTMLInputElement>
+  const extraRateInputRef = useRef() as MutableRefObject<HTMLInputElement>
+  const holidayRateInputRef = useRef() as MutableRefObject<HTMLInputElement>
+  const sickRateInputRef = useRef() as MutableRefObject<HTMLInputElement>
 
   return isMenuOpen
     ? (<StyledMainMenuLayout active={isMenuOpen}>
@@ -29,25 +20,24 @@ function MainMenu (): JSX.Element {
       <form
         action="#"
         method="post"
-        onSubmit={() => {
-          // eslint-disable-next-line no-console
-          console.log('evtsubm')
+        onSubmit={(event) => {
+          event.preventDefault()
         }}
       >
         <fieldset>
           <legend>Тарифы</legend>
-          {/* <label htmlFor="defaultRate">Обычные часы</label>
+          <label htmlFor="defaultRate">Обычные часы</label>
           <p>
             <input ref={defaultRateInputRef} id="defaultRate" type="number" placeholder="0" />
             <button
               type="button"
               onClick={() => {
-                dispatchSetDefaultRate(setDefaultRate(defaultRateInputRef.current.value))
+                dispatch(setDefaultRate(Number(defaultRateInputRef.current.value)))
               }}
             >
               уст.
             </button>
-            <span>{defaultRate ? `${defaultRate}р./ч.` : 'загрузка..'}</span>
+            <span>{(!Number.isNaN(defaultRate)) ? `${defaultRate}р./ч.` : 'загрузка..'}</span>
           </p>
           <label htmlFor="extraRate">Переработка</label>
           <p>
@@ -55,12 +45,12 @@ function MainMenu (): JSX.Element {
             <button
               type="button"
               onClick={() => {
-                dispatchSetExtraRate(setExtraRate(extraRateInputRef.current.value))
+                dispatch(setExtraRate(Number(extraRateInputRef.current.value)))
               }}
             >
               уст.
             </button>
-            <span>{extraRate ? `${extraRate}р./ч.` : 'загрузка..'}</span>
+            <span>{(!Number.isNaN(extraRate)) ? `${extraRate}р./ч.` : 'загрузка..'}</span>
           </p>
           <label htmlFor="holidayRate">Выходной день</label>
           <p>
@@ -68,12 +58,12 @@ function MainMenu (): JSX.Element {
             <button
               type="button"
               onClick={() => {
-                dispatchSetHolidayRate(setHolidayRate(holidayRateInputRef.current.value))
+                dispatch(setHolidayRate(Number(holidayRateInputRef.current.value)))
               }}
             >
               уст.
             </button>
-            <span>{holidayRate ? `${holidayRate}р./ч.` : 'загрузка..'}</span>
+            <span>{(!Number.isNaN(holidayRate)) ? `${holidayRate}р./ч.` : 'загрузка..'}</span>
           </p>
           <label htmlFor="sickRate">Больничный</label>
           <p>
@@ -81,13 +71,13 @@ function MainMenu (): JSX.Element {
             <button
               type="button"
               onClick={() => {
-                dispatchSetSickRate(setSickRate(sickRateInputRef.current.value))
+                dispatch(setSickRate(Number(sickRateInputRef.current.value)))
               }}
             >
               уст.
             </button>
-            <span>{sickRate ? `${sickRate}%` : 'загрузка..'}</span>
-          </p> */}
+            <span>{(!Number.isNaN(sickRate)) ? `${sickRate}%` : 'загрузка..'}</span>
+          </p>
         </fieldset>
       </form>
     </StyledMainMenuLayout>
