@@ -10,7 +10,7 @@ interface Colors {
   alfa: string
   betta: string
   hoverBorder: string
-
+  delta?: string
 }
 
 export interface DefaultThemeType {

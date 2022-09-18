@@ -1,36 +1,40 @@
+import About from '../../blocks/about/About'
+import Container from '../container/Container'
+import dayjs from 'dayjs'
+import MonthFilter from '../../ui/month-filter/MonthFilter'
+import React, { MutableRefObject, useRef } from 'react'
 import { StyledMain } from './styled'
 // import { MONTHS } from '../../../mocks/mocks'
-import MonthFilter from '../../ui/month-filter/MonthFilter'
-// import React, { useEffect, useRef } from 'react'
 
-// import About from '../../blocks/about/About'
-import Container from '../container/Container'
+import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
 
 function Main (): JSX.Element {
-  // const calendar = useSelector((state) => state?.calendarReducer)
-  // const filter = useSelector((state) => state?.appReducer.monthFilter)
-  // const currentMonth = moment().month()
-  // const currentMonthRef = useRef()
+  const calendar = useAppSelector(state => state.calendar.calendar)
+  const filter = useAppSelector(state => state.app.monthFilter)
+  const dispatch = useAppDispatch()
+  const currentMonth = dayjs().month()
+  console.log(calendar)
+  const currentMonthRef = React.useRef<HTMLElement>() as MutableRefObject<HTMLElement>
 
-  //  const canIRender = (index) => {
-  //   switch (filter.showType) {
-  //     case 0:
-  //       return true
-  //     case 1:
-  //       return index === filter.showMonth || index === filter.showMonth - 1
-  //     case 2:
-  //       return index === filter.showMonth
+  const canIRender = (index: number): boolean => {
+    switch (filter.showType) {
+      case 0:
+        return true
+      case 1:
+        return index === filter.showMonth || index === filter.showMonth - 1
+      case 2:
+        return index === filter.showMonth
 
-  //     default:
-  //       return false
-  //   }
-  // }
+      default:
+        return false
+    }
+  }
 
   return (
     <StyledMain>
       <Container>
 
-        {/* <About currentMonthRef={currentMonthRef}/> */}
+        <About currentMonthRef={currentMonthRef}/>
         <MonthFilter />
 
           {/* {calendar.map((item, index) =>
