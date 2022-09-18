@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import appSlice from './slices/app-slice'
+import calendarSlice from './slices/calendar-slice'
 import ratesSlice from './slices/rates-slice'
 
 export const store = configureStore({
   reducer: {
     app: appSlice,
-    rates: ratesSlice
+    rates: ratesSlice,
+    calendar: calendarSlice
   },
   devTools: process.env.NODE_ENV !== 'production'
 })
