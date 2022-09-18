@@ -11,7 +11,7 @@ import WorkCalendar from '../../ui/work-calendar/WorkCalendar'
 import { useAppDispatch } from './../../../redux/reduxHooks'
 import { resetCalendar } from '../../../redux/slices/calendar-slice'
 import { twentytwo } from './../../../mocks/mocks'
-import DayMenu from '../../ui/day-menu/DayMenu'
+// import DaysDataGenerator from '../../../api/days-data-generator'
 
 function Main (): JSX.Element {
   const calendar = useAppSelector(state => state.calendar.calendar)
@@ -20,6 +20,7 @@ function Main (): JSX.Element {
   const currentMonth = dayjs().month()
   console.log(calendar)
   const currentMonthRef = React.useRef<HTMLElement>() as MutableRefObject<HTMLElement>
+  // const gen = new DaysDataGenerator()
 
   const canIRender = (index: number): boolean => {
     switch (filter.showType) {
@@ -35,6 +36,10 @@ function Main (): JSX.Element {
   }
 
   useEffect(() => {
+    // gen.getData().then(data => {
+    //   dispatch(resetCalendar(data))
+    // }).catch(e => console.log)
+
     dispatch(resetCalendar(twentytwo))
   }, [])
 

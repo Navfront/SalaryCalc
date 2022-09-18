@@ -29,6 +29,7 @@ export interface DayMenuData {
   currHDay: boolean
   currMoney: number
   currMonth: number
+  currI: number
 }
 
 export interface TogglePopupPayload {

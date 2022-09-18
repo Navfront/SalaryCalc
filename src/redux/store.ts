@@ -9,7 +9,11 @@ export const store = configureStore({
     rates: ratesSlice,
     calendar: calendarSlice
   },
-  devTools: process.env.NODE_ENV !== 'production'
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    })
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

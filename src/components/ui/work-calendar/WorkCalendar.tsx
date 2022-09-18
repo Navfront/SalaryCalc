@@ -1,6 +1,6 @@
 import CalendarCell from '../calendar-cell/CalendarCell'
 import MonthSalary from '../month-salary/MonthSalary'
-import React, { RefObject } from 'react'
+import React from 'react'
 import { DAY_NAMES, MONTHS } from '../../../mocks/mocks'
 import { useAppSelector } from '../../../redux/reduxHooks'
 import {
@@ -39,7 +39,8 @@ function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
                   hDay: day.hDay ?? false,
                   activity: day.activity ?? null,
                   extra: day.extra ?? 0,
-                  money: day.money ?? 0
+                  money: day.money ?? 0,
+                  i: index
                 }}
                 key={`${index}cell`}
               >

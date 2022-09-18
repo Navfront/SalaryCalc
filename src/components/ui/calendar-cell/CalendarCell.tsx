@@ -4,9 +4,10 @@ import workingDayIcon from '../../../assets/work.svg'
 import sickDayIcon from '../../../assets/sick.svg'
 import palmDayIcon from '../../../assets/palm.svg'
 import sandClock from '../../../assets/sandclock.svg'
-import React, { PropsWithChildren, useState } from 'react'
-import { useAppDispatch } from './../../../redux/reduxHooks'
+import { PropsWithChildren, useState } from 'react'
+import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
 import { togglePopup } from '../../../redux/slices/app-slice'
+import { log } from 'console'
 
 export interface DayObjectProps {
   dayObject: {
@@ -17,15 +18,19 @@ export interface DayObjectProps {
     activity: null | 1 | 2 | 3 | 4
     extra: number
     money: number
+    i: number
   }
 }
 
 function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildren): JSX.Element {
-  const [activityType, setActivityType] = useState(dayObject.activity)
-  const [extra, setExtra] = useState(dayObject.extra)
   const isDay = !Number.isNaN(dayObject.day)
+  const dayData = useAppSelector(state => state.calendar.calendar[dayObject.month][dayObject.i])
+  const { activity: activityType, extra } = dayData
   const dispatch = useAppDispatch()
   const handlerCellOnClick = (): void => {
+    console.log(dayData)
+    console.log(dayObject)
+
     dispatch(togglePopup({
       data: {
         currActivity: dayObject.activity,
@@ -34,10 +39,10 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
         currExtra: dayObject.extra,
         currHDay: dayObject.hDay,
         currMoney: dayObject.money,
-        currMonth: dayObject.month
+        currMonth: dayObject.month,
+        currI: dayObject.i
       },
       isOpen: true
-
     }))
   }
 
@@ -49,7 +54,7 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
       {activityType === 3 ? <img width="20" height="20" src={palmDayIcon} alt="vocation day" /> : null}
       {activityType === 4 ? <img width="20" height="20" src={sandClock} alt="waiting day" /> : null}
 
-      {(!Number.isNaN(extra)) && activityType === 1 ? <span className="extraHours">+{extra}</span> : null}
+      {extra !== null && activityType === 1 ? <span className="extraHours">+{extra}</span> : null}
     </StyledCalendarCell>
   )
 }

@@ -10,7 +10,13 @@ function Popup (): JSX.Element {
   return (
     <StyledOverlay isShow={isPopupOpen}>
       <StyledPopup>
-        {(popup.data != null) ? <DayMenu/> : null}
+        {(popup.data != null)
+          ? <DayMenu cellActivityCallback={function (value: 1 | 2 | 3 | 4 | null): void {
+            throw new Error('Function not implemented.')
+          } } cellExtraCallback={function (value: number): void {
+            throw new Error('Function not implemented.')
+          } } />
+          : null}
         <CloseButton />
       </StyledPopup>
     </StyledOverlay>

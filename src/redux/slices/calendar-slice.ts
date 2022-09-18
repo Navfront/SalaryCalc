@@ -14,7 +14,8 @@ export interface SetDayPayload {
   month: number
   day: number
   activity: null | 1 | 2 | 3 | 4
-  extra: number
+  extra: number | null
+  i?: number
 }
 
 const calendarSlice = createSlice({
@@ -22,17 +23,9 @@ const calendarSlice = createSlice({
   initialState,
   reducers: {
     setDay: (state, { payload }: PayloadAction<SetDayPayload>) => {
-      state.calendar.forEach((month, monthIndex) => {
-        if (monthIndex === payload.month) {
-          month.forEach((day) => {
-            if (day.day === payload.day) {
-              day.month = payload.month
-              day.activity = payload.activity
-              day.extra = payload.extra
-            }
-          })
-        }
-      })
+      const m = payload.month ?? 0
+      const i = payload.i ?? 0
+      state.calendar[m][i] = { ...state.calendar[m][i], activity: payload.activity, extra: payload.extra }
     },
     resetCalendar: (state, action: PayloadAction<YearType>) => {
       state.calendar = action.payload

@@ -61,12 +61,13 @@ export default class DaysDataGenerator {
         if (index < offSetDays - 1 || index > maxDays + offSetDays - 2) {
           return { ...objDay, day: null }
         } else {
-          return {
+          return ({
             ...objDay,
             day: dayNumber++,
             hDay: this._isNotWorkingDay(year, monthIndex + 1, index - offSetDays + 2),
-            dayIndex: ++dayCounter
-          }
+            dayIndex: ++dayCounter,
+            i: index
+          })
         }
       })
     })

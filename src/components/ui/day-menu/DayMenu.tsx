@@ -1,22 +1,27 @@
 import { StyledDayMenuWrapper } from './styled'
 import { useState } from 'react'
 import { MONTHS } from '../../../mocks/mocks'
-import { togglePopup } from '../../../redux/slices/app-slice'
+import { DayMenuData, togglePopup } from '../../../redux/slices/app-slice'
 import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
 import { log } from 'console'
+import { setDay } from '../../../redux/slices/calendar-slice'
 
-function DayMenu (): JSX.Element {
+interface DayMenuProps {
+  cellActivityCallback: (value: null | 1 | 2 | 3 | 4) => void
+  cellExtraCallback: (value: number) => void
+}
+
+function DayMenu ({ cellActivityCallback, cellExtraCallback }: DayMenuProps): JSX.Element {
   const [extraCount, setExtraCount] = useState(3)
   const dispatch = useAppDispatch()
   const currentDay = useAppSelector(state => state.app.popup.data)
-  console.log(currentDay)
-
+  const { currDay, currMonth, currExtra, currActivity, currI } = currentDay as DayMenuData
   const closePopup = (): void => {
     dispatch(togglePopup({ isOpen: false }))
   }
 
   return (
-    <StyledDayMenuWrapper>
+    <StyledDayMenuWrapper >
       <h2>Настройки Дня</h2>
       <p></p>
       <p>Выберите один из вариантов:</p>
@@ -30,9 +35,13 @@ function DayMenu (): JSX.Element {
             className="dayButton"
             type="button"
             onClick={() => {
-              // setDay(setCalendarValue({ ...data, activity: 1, extra: null }))
-              // cellActivityCallBack(1)
-              // cellExtraCallBack(null)
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: null,
+                activity: 1,
+                i: currI
+              }))
               closePopup()
             }}
           >
@@ -44,9 +53,13 @@ function DayMenu (): JSX.Element {
             className="dayButton"
             type="button"
             onClick={() => {
-              // setDay(setCalendarValue({ ...data, activity: 1, extra: extraCount }))
-              // cellActivityCallBack(1)
-              // cellExtraCallBack(extraCount)
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: extraCount,
+                activity: 1,
+                i: currI
+              }))
               closePopup()
             }}
           >
@@ -80,9 +93,13 @@ function DayMenu (): JSX.Element {
             className="dayButton"
             type="button"
             onClick={() => {
-              // setDay(setCalendarValue({ ...data, activity: 3, extra: null }))
-              // cellActivityCallBack(3)
-              // cellExtraCallBack(null)
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: null,
+                activity: 3,
+                i: currI
+              }))
               closePopup()
             }}
           >
@@ -94,9 +111,13 @@ function DayMenu (): JSX.Element {
             className="dayButton"
             type="button"
             onClick={() => {
-              // setDay(setCalendarValue({ ...data, activity: 4, extra: null }))
-              // cellActivityCallBack(4)
-              // cellExtraCallBack(null)
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: null,
+                activity: 4,
+                i: currI
+              }))
               closePopup()
             }}
           >
@@ -108,9 +129,13 @@ function DayMenu (): JSX.Element {
             className="dayButton"
             type="button"
             onClick={() => {
-              // setDay(setCalendarValue({ ...data, activity: 2, extra: null }))
-              // cellActivityCallBack(2)
-              // cellExtraCallBack(null)
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: null,
+                activity: 2,
+                i: currI
+              }))
               closePopup()
             }}
           >
@@ -122,9 +147,13 @@ function DayMenu (): JSX.Element {
             className="dayButton"
             type="button"
             onClick={() => {
-              // setDay(setCalendarValue({ ...data, activity: null, extra: null }))
-              // cellActivityCallBack(0)
-              // cellExtraCallBack(null)
+              dispatch(setDay({
+                day: currDay,
+                month: currMonth,
+                extra: null,
+                activity: null,
+                i: currI
+              }))
               closePopup()
             }}
           >
