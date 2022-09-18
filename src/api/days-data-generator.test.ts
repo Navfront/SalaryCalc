@@ -10,15 +10,15 @@ const TWTWO =
 
 describe('Тест класса генерации данных', () => {
 // -----------------------------------------------------------------------------
-//   test('Фетч выходных дней ок', async () => {
-//     const fResult = await DaysDataGenerator.getHolidaysFetch(2022);
-//     expect(fResult).toEqual(TWTWO);
-//   });
+  // test('Фетч выходных дней ок', async () => {
+  //   const fResult = await dIns._getHolidaysFetch(2022)
+  //   expect(fResult).toEqual(TWTWO)
+  // })
 
   // -----------------------------------------------------------------------------
-  //   test('Читаем данные с локалстора или фетчим', async () => {
-  //     expect(await DaysDataGenerator.getLocalHolidaysData(2022)).toEqual(TWTWO);
-  //   });
+  // test('Читаем данные с локалстора или фетчим', async () => {
+  //   expect(await dIns._getLocalHolidaysData(2022)).toEqual(TWTWO)
+  // })
 
   // -----------------------------------------------------------------------------
   test('Создаем правильные данные на год', async () => {
