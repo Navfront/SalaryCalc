@@ -1,5 +1,5 @@
 import { StyledMonthSalary } from './styled'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import calcSalary from './../../../api/calcSalary'
 import { useAppSelector } from '../../../redux/reduxHooks'
 
@@ -18,4 +18,4 @@ function MonthSalary ({ month }: MonthSalaryProps): JSX.Element {
   return <StyledMonthSalary>{salary}</StyledMonthSalary>
 }
 
-export default MonthSalary
+export default React.memo(MonthSalary)

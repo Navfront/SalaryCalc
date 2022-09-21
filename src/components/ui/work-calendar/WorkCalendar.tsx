@@ -18,7 +18,9 @@ interface WorkCalendarProps {
 }
 
 function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
-  const calendar = useAppSelector(state => state.calendar.calendar)
+  const mcalendar = useAppSelector(state => state.calendar.calendar[month], (prev, next) => {
+    return typeof prev === typeof next
+  })
 
   return (
     <StyledWorkCalendar >
@@ -29,9 +31,11 @@ function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
           {DAY_NAMES.map((item, index) => (
             <StyledDayName key={`${index}day`}>{item}</StyledDayName>
           ))}
-          {calendar.length > 0 &&
-            calendar[(!Number.isNaN(month)) && month < 12 ? month : 0].map((day, index) => (
+          {mcalendar.length > 0 &&
+            mcalendar.map((day, index) => (
               <CalendarCell
+                data-month={`${month}`}
+                data-day={`${String(day.day)}`}
                 dayObject={{
                   month,
                   dayIndex: day.dayIndex ?? 0,
@@ -42,7 +46,7 @@ function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
                   money: day.money ?? 0,
                   i: index
                 }}
-                key={`${index}cell`}
+                key={`${month}-${index}cell`}
               >
                 {day.day}
               </CalendarCell>
@@ -54,4 +58,4 @@ function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
   )
 }
 
-export default React.forwardRef(WorkCalendar)
+export default React.memo(WorkCalendar)

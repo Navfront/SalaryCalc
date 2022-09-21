@@ -5,10 +5,9 @@ import sickDayIcon from '../../../assets/sick.svg'
 import palmDayIcon from '../../../assets/palm.svg'
 import sandClock from '../../../assets/sandclock.svg'
 import craneIcon from '../../../assets/crane.svg'
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
 import { togglePopup } from '../../../redux/slices/app-slice'
-
 import { DayType } from '../../../types/calendar'
 
 export interface DayObjectProps {
@@ -29,7 +28,11 @@ interface dayObject extends DayType {
 function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildren): JSX.Element {
   const isDay = (dayObject.day !== 0)
   const { month: m, i } = dayObject
-  const dayData = useAppSelector(state => state.calendar.calendar[m][i])
+
+  const dayData = useAppSelector(state => state.calendar.calendar[m][i], (pr, nt) => {
+    return pr.activity === nt.activity
+  }
+  )
   const { activity: activityType, extra } = dayData
   const dispatch = useAppDispatch()
   const handlerCellOnClick = (): void => {
@@ -51,7 +54,7 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
   return (
     dayObject.day === 0
       ? <StyledPlaceHolder isDay={isDay} isHday={dayObject.hDay}/>
-      : <StyledCalendarCell aria-label={dayObject.day !== 0 ? `Настройки День ${dayObject.day}` : ''} onClick={handlerCellOnClick} isHday={dayObject.hDay} isDay={isDay}>
+      : <StyledCalendarCell className='cell' aria-label={dayObject.day !== 0 ? `Настройки День ${dayObject.day}` : ''} onClick={handlerCellOnClick} isHday={dayObject.hDay} isDay={isDay}>
       {children}
       {activityType === 1 ? <img width="20" height="20" src={craneIcon} alt="working day" /> : null}
       {activityType === 2 ? <img width="20" height="20" src={sickDayIcon} alt="sick day" /> : null}
@@ -63,4 +66,5 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
     </StyledCalendarCell>
   )
 }
-export default CalendarCell
+
+export default React.memo(CalendarCell)

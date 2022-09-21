@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { StyledCloseButton } from './styled'
 import { useAppDispatch } from './../../../redux/reduxHooks'
 import { togglePopup } from '../../../redux/slices/app-slice'
@@ -15,4 +15,4 @@ function CloseButton ({ children }: PropsWithChildren): JSX.Element {
   )
 }
 
-export default CloseButton
+export default React.memo(CloseButton)

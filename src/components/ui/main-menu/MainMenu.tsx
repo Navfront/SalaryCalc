@@ -16,8 +16,6 @@ function MainMenu (): JSX.Element {
   const montageRateInputRef = useRef() as MutableRefObject<HTMLInputElement>
   const montageExtraRateInputRef = useRef() as MutableRefObject<HTMLInputElement>
 
-  console.log(montageRate, montageExtraRate)
-
   return isMenuOpen
     ? (<StyledMainMenuLayout active={isMenuOpen}>
       <StyledMainMenuTitle>Настройки</StyledMainMenuTitle>
