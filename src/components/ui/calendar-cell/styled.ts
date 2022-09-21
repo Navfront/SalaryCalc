@@ -20,21 +20,14 @@ interface CellProps {
   isHday: boolean
 }
 
-export const StyledCalendarCell = styled.button`
-  width: 100%;
-  height: 100%;
-  position: relative;
-  box-sizing: border-box;
-  border-radius: 2px;
-  background-color: ${({ isDay, isHday, theme }: DefaultThemeType & CellProps) => {
-    if (!isDay) {
-      return 'transparent'
-    }
+const buttonStyles = css`
+background-color: ${({ isDay, isHday, theme }: DefaultThemeType & CellProps) => {
     if (isHday) {
       return theme.colors.bgAccent
     }
     return theme.colors.bgLAccent
-  }};
+}};
+  opacity: ${({ isDay }) => !isDay ? '0.25' : '1'};
   color: ${({ isHday, theme }: DefaultThemeType & CellProps) => (isHday ? theme.colors.warn : theme.colors.text)};
   text-align: center;
   vertical-align: middle;
@@ -46,6 +39,7 @@ export const StyledCalendarCell = styled.button`
   font-weight: 500;
   min-height: 50px;
   border: none;
+  border-radius: 3px;
 
   min-height: 50px;
   min-width: 36.6px;
@@ -69,6 +63,15 @@ export const StyledCalendarCell = styled.button`
       height: 14px;
     }
   }
+`
+
+export const StyledPlaceHolder = styled.div`
+ ${buttonStyles}
+`
+
+export const StyledCalendarCell = styled.button`
+  ${buttonStyles}
+  
 
   .extraHours {
     grid-column: 2;

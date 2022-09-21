@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { StyledCalendarCell } from './styled'
+import { StyledCalendarCell, StyledPlaceHolder } from './styled'
 import workingDayIcon from '../../../assets/work.svg'
 import sickDayIcon from '../../../assets/sick.svg'
 import palmDayIcon from '../../../assets/palm.svg'
@@ -27,15 +27,12 @@ interface dayObject extends DayType {
 }
 
 function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildren): JSX.Element {
-  const isDay = !Number.isNaN(dayObject.day)
+  const isDay = (dayObject.day !== 0)
   const { month: m, i } = dayObject
   const dayData = useAppSelector(state => state.calendar.calendar[m][i])
   const { activity: activityType, extra } = dayData
   const dispatch = useAppDispatch()
   const handlerCellOnClick = (): void => {
-    console.log(dayData)
-    console.log(dayObject)
-
     dispatch(togglePopup({
       data: {
         currActivity: dayObject.activity,
@@ -52,7 +49,9 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
   }
 
   return (
-    <StyledCalendarCell aria-label='Настройки дня' onClick={handlerCellOnClick} isHday={dayObject.hDay} isDay={isDay}>
+    dayObject.day === 0
+      ? <StyledPlaceHolder isDay={isDay} isHday={dayObject.hDay}/>
+      : <StyledCalendarCell aria-label={dayObject.day !== 0 ? `Настройки День ${dayObject.day}` : ''} onClick={handlerCellOnClick} isHday={dayObject.hDay} isDay={isDay}>
       {children}
       {activityType === 1 ? <img width="20" height="20" src={craneIcon} alt="working day" /> : null}
       {activityType === 2 ? <img width="20" height="20" src={sickDayIcon} alt="sick day" /> : null}
