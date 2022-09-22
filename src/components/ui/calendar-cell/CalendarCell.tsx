@@ -6,8 +6,8 @@ import palmDayIcon from '../../../assets/palm.svg'
 import sandClock from '../../../assets/sandclock.svg'
 import craneIcon from '../../../assets/crane.svg'
 import React, { PropsWithChildren } from 'react'
-import { useAppDispatch, useAppSelector } from './../../../redux/reduxHooks'
-import { togglePopup } from '../../../redux/slices/app-slice'
+import { useAppSelector } from './../../../redux/reduxHooks'
+// import { togglePopup } from '../../../redux/slices/app-slice'
 import { DayType } from '../../../types/calendar'
 
 export interface DayObjectProps {
@@ -34,27 +34,13 @@ function CalendarCell ({ dayObject, children }: DayObjectProps & PropsWithChildr
   }
   )
   const { activity: activityType, extra } = dayData
-  const dispatch = useAppDispatch()
-  const handlerCellOnClick = (): void => {
-    dispatch(togglePopup({
-      data: {
-        currActivity: dayObject.activity,
-        currDay: dayObject.day,
-        currDayIndex: dayObject.dayIndex,
-        currExtra: dayObject.extra,
-        currHDay: dayObject.hDay,
-        currMoney: dayObject.money,
-        currMonth: dayObject.month,
-        currI: dayObject.i
-      },
-      isOpen: true
-    }))
-  }
 
   return (
     dayObject.day === 0
       ? <StyledPlaceHolder isDay={isDay} isHday={dayObject.hDay}/>
-      : <StyledCalendarCell className='cell' aria-label={dayObject.day !== 0 ? `Настройки День ${dayObject.day}` : ''} onClick={handlerCellOnClick} isHday={dayObject.hDay} isDay={isDay}>
+      : <StyledCalendarCell
+      data-m={`${String(dayObject.month)}`}
+      data-i={`${String(dayObject.i)}`} className='cell' aria-label={dayObject.day !== 0 ? `Настройки День ${dayObject.day}` : ''} isHday={dayObject.hDay} isDay={isDay}>
       {children}
       {activityType === 1 ? <img width="20" height="20" src={craneIcon} alt="working day" /> : null}
       {activityType === 2 ? <img width="20" height="20" src={sickDayIcon} alt="sick day" /> : null}

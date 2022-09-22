@@ -34,8 +34,6 @@ function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
           {mcalendar.length > 0 &&
             mcalendar.map((day, index) => (
               <CalendarCell
-                data-month={`${month}`}
-                data-day={`${String(day.day)}`}
                 dayObject={{
                   month,
                   dayIndex: day.dayIndex ?? 0,
