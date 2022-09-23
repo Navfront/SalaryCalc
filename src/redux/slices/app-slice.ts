@@ -16,7 +16,6 @@ export interface AppInitialState {
   isMenuOpen: boolean
   popup: PopupState
   monthFilter: MonthFilterState
-  showAbout: boolean
 }
 
 export interface DayMenuData {
@@ -44,8 +43,7 @@ export interface ToggleFilterPayload {
 const init: AppInitialState = {
   isMenuOpen: false,
   popup: { isOpen: false, data: null },
-  monthFilter: { showMonth: dayjs().month(), showType: 0, showOne: false },
-  showAbout: true
+  monthFilter: { showMonth: dayjs().month(), showType: 0, showOne: false }
 }
 
 export const appSlice = createSlice({
@@ -63,13 +61,9 @@ export const appSlice = createSlice({
       state.monthFilter.showMonth = action.payload.showMonth
       state.monthFilter.showType = action.payload.showType
       state.monthFilter.showOne = action.payload.showOne
-    },
-    toggleAbout: (state) => {
-      state.showAbout = !state.showAbout
     }
-
   }
 })
 
-export const { toggleMenu, togglePopup, setFilter, toggleAbout } = appSlice.actions
+export const { toggleMenu, togglePopup, setFilter } = appSlice.actions
 export default appSlice.reducer

@@ -3,18 +3,17 @@ import { StyledAboutWrapper, StyledAboutButton } from './styled'
 import upArrow from '../../../assets/up-arrow.svg'
 import { useAppSelector } from '../../../redux/reduxHooks'
 import { useAppDispatch } from './../../../redux/reduxHooks'
-import { toggleAbout } from '../../../redux/slices/app-slice'
 import React, { useEffect } from 'react'
+import { toggleAbout } from '../../../redux/slices/about-slice'
 
 export default function About (): JSX.Element {
-  const isAboutShow = useAppSelector(state => state.app.showAbout)
+  const isAboutShow = useAppSelector(state => state.about.showAbout)
   const calendar = useAppSelector(state => state.calendar.calendar, (p, n) => p.length === n.length)
   const dispatch = useAppDispatch()
   const arrButtonRef = React.createRef<HTMLButtonElement>()
 
   useEffect(() => {
     const currentMonth = document.querySelector<HTMLDivElement>('.current-month')
-    console.log(currentMonth)
     const arrButtonClickHandler = (): void => {
       if (currentMonth !== null) { currentMonth.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) }
       dispatch(toggleAbout())
