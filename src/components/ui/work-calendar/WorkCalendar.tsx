@@ -14,16 +14,17 @@ import {
 interface WorkCalendarProps {
   title: string
   month: number
+  className: string
 
 }
 
-function WorkCalendar ({ title, month }: WorkCalendarProps): JSX.Element {
+function WorkCalendar ({ title, month, className }: WorkCalendarProps): JSX.Element {
   const mcalendar = useAppSelector(state => state.calendar.calendar[month], (prev, next) => {
     return typeof prev === typeof next
   })
 
   return (
-    <StyledWorkCalendar >
+    <StyledWorkCalendar className={className}>
       <h3 className='visually-hidden'>График за месяц {MONTHS[month]}</h3>
       <StyledWorkCalendarFigure>
         <StyledWorkCalendarCaption>{title}</StyledWorkCalendarCaption>

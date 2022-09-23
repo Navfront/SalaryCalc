@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { MONTHS, twentytwo } from '../../../mocks/mocks'
 import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
@@ -23,6 +24,8 @@ export const CalendarWrapper = (): JSX.Element => {
       const target = event.target as HTMLElement
       if (target.classList.contains('cell')) {
         const { m, i } = target.dataset
+        console.log(m, i)
+
         const targetDayData = calendar[Number(m)][Number(i)]
         dispatch(togglePopup({
           isOpen: true,
@@ -32,8 +35,8 @@ export const CalendarWrapper = (): JSX.Element => {
             currHDay: targetDayData.hDay ?? false,
             currDay: targetDayData.day ?? 0,
             currExtra: targetDayData.extra ?? 0,
-            currMonth: targetDayData.month ?? 0,
-            currI: targetDayData.i ?? 0,
+            currMonth: Number(m),
+            currI: Number(i),
             currMoney: targetDayData.money ?? 0
           }
         }))
@@ -67,6 +70,7 @@ export const CalendarWrapper = (): JSX.Element => {
                 title={MONTHS[index]}
                 key={`${index}month`}
                 month={index}
+                className={dayjs().month() === index ? 'current-month' : ''}
               />
                     )
                   }

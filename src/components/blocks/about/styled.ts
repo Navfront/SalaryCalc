@@ -1,16 +1,18 @@
 import styled from 'styled-components/macro'
 import { DefaultThemeType } from './../../theme/defaultTheme'
 
-interface AboutWrapperProps {
+interface AboutProps {
   isShow: boolean
 }
 
 export const StyledAboutWrapper = styled.div`
-  margin-bottom: ${({ isShow }: AboutWrapperProps) => (isShow ? '30px' : '0px')};
-  height: ${({ isShow }: AboutWrapperProps) => (isShow ? 'auto' : '1px')};
-  transition: ease 0.3s height;
+  margin-bottom: ${({ isShow }: AboutProps) => (isShow ? '30px' : '0px')};
+  height: ${({ isShow }: AboutProps) => (isShow ? '210px' : '1px')};
+  transition: ease 0.3s;
   text-align: center;
   overflow: hidden;
+
+
   p {
     line-height: 1.45;
   }
@@ -23,6 +25,7 @@ export const StyledAboutWrapper = styled.div`
     border-radius: 5px;
     background-color: transparent;
     font-weight: 600;
+    
     cursor: pointer;
     &:hover {
       opacity: 0.6;
