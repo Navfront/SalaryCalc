@@ -31,7 +31,7 @@ export default function About (): JSX.Element {
   }, [calendar, isAboutShow])
 
   return (<React.Fragment>
-    <StyledAboutWrapper ref={wrapperRef} aria-expanded={isAboutShow} tabIndex={isAboutShow ? 0 : -1} isShow={isAboutShow} >
+    <StyledAboutWrapper ref={wrapperRef} tabIndex={isAboutShow ? 0 : -1} isShow={isAboutShow} >
       <div ref={contentRef} className='content'>
         <h2>В&nbsp;пару кликов составим рабочий табель и&nbsp;рассчитаем зарплату.</h2>
         <p>Приложение, которое поможет вам сэкономить время на&nbsp;ведении рабочего табеля. Вы&nbsp;можете проставить свои рабочие дни, переработки, простои, больничные и&nbsp;отпуска на&nbsp;весь год и&nbsp;рассчитать согласно этим данным свою зарплату. Хорошо подходит тем, кто работает с восьмичасовым рабочим графиком. Данные хранятся только у&nbsp;вас в&nbsp;браузере и&nbsp;не&nbsp;передаются третьим лицам. Поэтому советую не&nbsp;чистить данные и&nbsp;историю браузер.</p>

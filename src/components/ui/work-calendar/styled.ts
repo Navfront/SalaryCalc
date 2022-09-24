@@ -30,7 +30,7 @@ export const StyledDayName = styled.p`
   color: ${({ theme }: DefaultThemeType) => (theme.colors.text)};
   border: 2px solid ${({ theme }: DefaultThemeType) => (theme.colors.bgAccent)};
   border-radius: 2px;
-  opacity: 0.5;
+  opacity: 0.8;
   @media (max-width: 767.9px) {
     font-size: 14px;
     padding: 0;

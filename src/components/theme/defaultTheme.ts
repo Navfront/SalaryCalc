@@ -33,7 +33,7 @@ const defaultTheme = {
     bgLAccent: '#dadbdf',
     text: '#333333',
     pop: '#c1c6ca',
-    warn: '#aa1d06',
+    warn: '#991A05',
     sux: '#3b511f',
     alfa: '#6b7d71',
     betta: '#84958d',

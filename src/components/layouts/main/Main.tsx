@@ -4,6 +4,7 @@ import MonthFilter from '../../ui/month-filter/MonthFilter'
 import React from 'react'
 import { StyledMain } from './styled'
 import { CalendarWrapper } from './../../ui/calendar-wrapper/calendar-wrapper'
+
 function Main (): JSX.Element {
   return (
     <StyledMain>
