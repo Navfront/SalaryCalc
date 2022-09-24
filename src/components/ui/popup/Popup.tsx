@@ -8,7 +8,7 @@ function Popup (): JSX.Element {
   const popup = useAppSelector(state => state.app.popup)
 
   return (
-    <StyledOverlay isShow={isPopupOpen}>
+    <StyledOverlay isShow={isPopupOpen} tabIndex={(isPopupOpen) ? 0 : -1}>
       <StyledPopup>
         {(popup.data != null)
           ? <DayMenu/>

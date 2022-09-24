@@ -12,7 +12,8 @@ function Burger ({ size }: BurgerProps): JSX.Element {
   const dispatch = useAppDispatch()
 
   return (
-    <StyledBurger aria-label='Меню настроек'
+    <StyledBurger aria-label='Меню настроек зарплаты'
+      aria-pressed={isMenuOpen}
       onClick={() => {
         dispatch(toggleMenu())
       }}

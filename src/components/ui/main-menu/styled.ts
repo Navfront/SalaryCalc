@@ -1,11 +1,8 @@
 import styled from 'styled-components/macro'
 import { DefaultThemeType } from './../../theme/defaultTheme'
 
-// const activeMainMenu = css`
-//   opacity: 1;
-// `
-
 export const StyledMainMenuLayout = styled.div`
+  display: none;
   position: absolute;
   right: -20px;
   top: 70px;
@@ -15,7 +12,6 @@ export const StyledMainMenuLayout = styled.div`
   padding: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   transition: ease 0.3s;
-  opacity: ${({ active }: { active: boolean }) => active ? '1;' : '0;'};
   background-color: ${({ theme }: DefaultThemeType) => (theme?.colors.bgLAccent)};
   
 

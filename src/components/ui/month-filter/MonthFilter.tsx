@@ -14,16 +14,19 @@ function MonthFilter (): JSX.Element {
       <h3 className='visually-hidden'>Фильтр по месяцам</h3>
       <form action="#" method="get">
         <div className="monthFilterWrapper">
-          <button type="button" onClick={() =>
-            dispatch(setFilter({
-              showMonth: 0,
-              showType: 0,
-              showOne: false
-            }))
+          <button
+          aria-label='Показать все месяца'
+            type="button" onClick={() =>
+              dispatch(setFilter({
+                showMonth: 0,
+                showType: 0,
+                showOne: false
+              }))
           }>
             Все месяца
           </button>
           <button
+            aria-label='Показать текущий месяц.'
             type="button"
             onClick={() =>
               dispatch(setFilter({
@@ -36,6 +39,7 @@ function MonthFilter (): JSX.Element {
             Текущий
           </button>
           <button
+            aria-label='Показать текущий месяц и предыдущий.'
             type="button"
             onClick={() =>
               dispatch(setFilter({
@@ -71,6 +75,7 @@ function MonthFilter (): JSX.Element {
       {filter.showType > 0
         ? <div className="monthFilterNextWrapper">
           <button
+            aria-label='Предыдущий месяц'
             disabled={filter.showMonth === 0}
             type="button"
             className="buttonToLeft"
@@ -85,6 +90,7 @@ function MonthFilter (): JSX.Element {
             Предыдущий
           </button>
           <button
+            aria-label='Следующий месяц'
             disabled={filter.showMonth > 10}
             type="button"
             className="buttonToRight"

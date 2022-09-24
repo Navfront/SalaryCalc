@@ -15,7 +15,7 @@ function MonthSalary ({ month }: MonthSalaryProps): JSX.Element {
   useEffect(() => {
     calcSalary(month, rates, monthData).then(res => setSalary(res)).catch(console.log)
   }, [monthData, rates])
-  return <StyledMonthSalary>{salary}</StyledMonthSalary>
+  return <StyledMonthSalary tabIndex={0} aria-label={`${salary} рублей`}>{salary}</StyledMonthSalary>
 }
 
 export default React.memo(MonthSalary)

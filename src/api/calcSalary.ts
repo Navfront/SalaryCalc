@@ -39,8 +39,6 @@ const calcSalary = async (monthNumber = 0, rates: RatesInitialState, monthData: 
 
           case 4:
             // простой
-            console.log('простой')
-
             salary = salary + Math.round((8 * pauseRate))
             break
 

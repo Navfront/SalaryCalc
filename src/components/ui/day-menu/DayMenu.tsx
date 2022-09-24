@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react'
 import { StyledDayMenuWrapper } from './styled'
-import { useState } from 'react'
 import { MONTHS } from '../../../mocks/mocks'
 import { DayMenuData, togglePopup } from '../../../redux/slices/app-slice'
 import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
@@ -14,13 +14,22 @@ function DayMenu (): JSX.Element {
   const closePopup = (): void => {
     dispatch(togglePopup({ isOpen: false }))
   }
+  const dayMenuRef = React.createRef<HTMLFormElement>()
+
+  useEffect(() => {
+    dayMenuRef.current?.focus()
+  }, [])
 
   return (
-    <StyledDayMenuWrapper >
+    <StyledDayMenuWrapper tabIndex={0} ref={dayMenuRef} onKeyDown={(evt) => {
+      if (evt.key === 'Esc' || evt.key === 'Escape') {
+        dispatch(togglePopup({ isOpen: false }))
+      }
+    }}>
       <h2>Настройки Дня</h2>
       <p></p>
       <p>Выберите один из вариантов:</p>
-      <form action="#" method="get">
+      <form action="#" method="get" >
         <div className="dayTitle">
           <span>{MONTHS[(currentDay != null) ? currentDay.currMonth : 0]}</span> <span className="dayNumber">{(currentDay != null) ? currentDay.currDay : 0}</span>
           { ((currentDay?.currHDay) ?? false) ? <span>(выходной)</span> : <span className="dayDescription">(рабочий день)</span>}
@@ -70,6 +79,7 @@ function DayMenu (): JSX.Element {
               }}
               className="dayButtonPlus"
               type="button"
+              aria-label={`Прибавить час переработки к ${montageExtraCount} часам`}
             >
               +
             </button>
@@ -80,6 +90,7 @@ function DayMenu (): JSX.Element {
               }}
               className="dayButtonMinus"
               type="button"
+              aria-label={`Вычесть час переработки из ${montageExtraCount} часов`}
             >
               -
             </button>
@@ -106,7 +117,7 @@ function DayMenu (): JSX.Element {
         </div>
         <div className="dayButtonWrapper">
           <button
-            aria-label='Установить обычные 8 часов, плюс переработка.'
+            aria-label='Установить обычные 8 часов плюс переработка.'
             className="dayButton"
             type="button"
             onClick={() => {
@@ -130,6 +141,7 @@ function DayMenu (): JSX.Element {
               }}
               className="dayButtonPlus"
               type="button"
+              aria-label={`Прибавить час переработки к ${extraCount} часам`}
             >
               +
             </button>
@@ -140,6 +152,7 @@ function DayMenu (): JSX.Element {
               }}
               className="dayButtonMinus"
               type="button"
+              aria-label={`Вычесть час переработки из ${extraCount} часов`}
             >
               -
             </button>

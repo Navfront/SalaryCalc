@@ -11,27 +11,36 @@ export default function About (): JSX.Element {
   const calendar = useAppSelector(state => state.calendar.calendar, (p, n) => p.length === n.length)
   const dispatch = useAppDispatch()
   const arrButtonRef = React.createRef<HTMLButtonElement>()
+  const contentRef = React.createRef<HTMLDivElement>()
+  const wrapperRef = React.createRef<HTMLDivElement & Element>()
 
   useEffect(() => {
     const currentMonth = document.querySelector<HTMLDivElement>('.current-month')
     const arrButtonClickHandler = (): void => {
-      if (currentMonth !== null) { currentMonth.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) }
+      if (currentMonth !== null) {
+        currentMonth.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+      }
       dispatch(toggleAbout())
     }
     if (currentMonth !== null && arrButtonRef.current !== null) {
       arrButtonRef.current.onclick = arrButtonClickHandler
     }
-  }, [calendar])
+    if (wrapperRef.current !== null && contentRef.current !== null) {
+      wrapperRef.current.style.height = isAboutShow ? (contentRef.current.scrollHeight + 25).toString() + 'px' : '1px'
+    }
+  }, [calendar, isAboutShow])
 
   return (<React.Fragment>
-    <StyledAboutWrapper isShow={isAboutShow}>
-      <h2>В&nbsp;пару кликов составим рабочий график и&nbsp;узнаем свою зарплату</h2>
-      <p>Приложение, которое поможет вам сэкономить время на&nbsp;ведении личного графика работы. Вы&nbsp;можете проставить свои рабочие дни, переработки, простои, больничные и&nbsp;отпуска на&nbsp;весь год и&nbsp;рассчитать согласно этим данным свою зарплату. Данные хранятся только у&nbsp;вас в&nbsp;браузере и&nbsp;не&nbsp;передаются третьим лицам. Поэтому советую не&nbsp;чистить данные и&nbsp;историю браузера где вы&nbsp;проставили свой график.</p>
+    <StyledAboutWrapper ref={wrapperRef} aria-expanded={isAboutShow} tabIndex={isAboutShow ? 0 : -1} isShow={isAboutShow} >
+      <div ref={contentRef} className='content'>
+        <h2>В&nbsp;пару кликов составим рабочий табель и&nbsp;рассчитаем зарплату.</h2>
+        <p>Приложение, которое поможет вам сэкономить время на&nbsp;ведении рабочего табеля. Вы&nbsp;можете проставить свои рабочие дни, переработки, простои, больничные и&nbsp;отпуска на&nbsp;весь год и&nbsp;рассчитать согласно этим данным свою зарплату. Хорошо подходит тем, кто работает с восьмичасовым рабочим графиком. Данные хранятся только у&nbsp;вас в&nbsp;браузере и&nbsp;не&nbsp;передаются третьим лицам. Поэтому советую не&nbsp;чистить данные и&nbsp;историю браузер.</p>
 
-      <button ref={arrButtonRef} className='aboutArrowButton' type='button' >Кликни на любой день ниже <img height="20" width="20w" src={upArrow} alt="стрелочка вниз" /></button>
+        <button ref={arrButtonRef} className='aboutArrowButton' type='button' aria-label='Фокус текущего месяца' tabIndex={isAboutShow ? 0 : -1} >Кликни на любой день ниже <img height="20" width="20w" src={upArrow} alt="стрелочка вниз" /></button>
+      </div>
 
     </StyledAboutWrapper>
-    <StyledAboutButton type='button' onClick={() => {
+    <StyledAboutButton aria-pressed={isAboutShow} aria-label='Показ описания' type='button' onClick={() => {
       dispatch(toggleAbout())
     }}>{isAboutShow ? 'Скрыть описание' : 'Показать описание'}
     </StyledAboutButton>

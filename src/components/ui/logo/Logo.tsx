@@ -10,9 +10,8 @@ interface LogoProps {
 
 function Logo ({ size, text }: LogoProps): JSX.Element {
   return (
-    <StyledLogo href={(size != null) ? 'https://github.com/Navfront' : '/'}>
+    <StyledLogo aria-label='Логотип нав фронт точка ру. Салари калк. Ссылка ведет на гитхаб.' href={(size != null) ? 'https://github.com/Navfront' : '/'}>
       <img
-        loading='lazy'
         width={(size != null) ? '200' : '40'}
         height={(size != null) ? '100' : '40'}
         src={(size != null) ? bigLogo as string : logo as string}
