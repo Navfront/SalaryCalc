@@ -15,3 +15,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 )
+
+console.log(process.env.NODE_ENV)

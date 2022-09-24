@@ -16,17 +16,27 @@
       content="Приложение составляет рабочий табель и считает ежемесячную зарплату. Настройка дня: работа, переработки, отпуска и тд"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap"
-      rel="stylesheet"
-    />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Рабочий табель. Составление табеля и подсчет зарплаты.</title>
   </head>
   <body>
     <noscript>Нужно включить java-script для этого приложения!</noscript>
     <div id="root"></div>
+    <script>
+      let currentTitle = '';
+      window.addEventListener('online', () => {
+        document.title = currentTitle;
+        provider.sync();
+      });
+
+      window.addEventListener('offline', () => {
+        currentTitle = document.title;
+        document.title = `${currentTitle} [offline]`;
+      });
+
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    </script>
   </body>
 </html>
