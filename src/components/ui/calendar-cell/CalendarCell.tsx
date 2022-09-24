@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { StyledCalendarCell, StyledPlaceHolder } from './styled'
-import workingDayIcon from '../../../assets/work.svg'
+
+import craneIcon from '../../../assets/crane.svg'
+import sandClock from '../../../assets/sandclock.svg'
 import sickDayIcon from '../../../assets/sick.svg'
 import palmDayIcon from '../../../assets/palm.svg'
-import sandClock from '../../../assets/sandclock.svg'
-import craneIcon from '../../../assets/crane.svg'
+import workingDayIcon from '../../../assets/work.svg'
 import React, { PropsWithChildren } from 'react'
-import { useAppSelector } from './../../../redux/reduxHooks'
-// import { togglePopup } from '../../../redux/slices/app-slice'
 import { DayType } from '../../../types/calendar'
+import { useAppSelector } from './../../../redux/reduxHooks'
+import { StyledCalendarCell, StyledPlaceHolder } from './styled'
 
 export interface DayObjectProps {
   dayObject: dayObject

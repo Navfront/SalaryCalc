@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
-import { MONTHS, twentytwo } from '../../../mocks/mocks'
+import { MONTHS } from '../../../mocks/mocks'
 import { useAppDispatch, useAppSelector } from '../../../redux/reduxHooks'
 import { togglePopup } from '../../../redux/slices/app-slice'
 import WorkCalendar from '../work-calendar/WorkCalendar'
