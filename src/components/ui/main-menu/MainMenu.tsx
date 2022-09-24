@@ -50,12 +50,12 @@ function MainMenu (): JSX.Element {
           <legend>Тарифы</legend>
           <label aria-label='Почасовой тариф за монтаж.' htmlFor="montageRate">Монтаж часы</label>
           <p>
-            <input ref={montageRateInputRef} id="montageRate" type="number" placeholder={montageRate.toString()} />
+          <input ref={montageRateInputRef} id="montageRate" type="number" placeholder={montageRate.toString()} min={0} />
             <button
               aria-label='Установить тариф'
               type="button"
               onClick={() => {
-                dispatch(setMontageRate(Number(montageRateInputRef.current.value)))
+                dispatch(setMontageRate(Math.abs(Number(montageRateInputRef.current.value))))
               }}
             >
               уст.
@@ -64,12 +64,12 @@ function MainMenu (): JSX.Element {
           </p>
           <label aria-label='Почасовой тариф за переработку на монтаже.' htmlFor="montageExtraRate">Монтаж пер.</label>
           <p>
-            <input ref={montageExtraRateInputRef} id="montageExtraRate" type="number" placeholder={montageExtraRate.toString()} />
+            <input ref={montageExtraRateInputRef} id="montageExtraRate" type="number" placeholder={montageExtraRate.toString()} min={0}/>
             <button
               aria-label='Установить тариф'
               type="button"
               onClick={() => {
-                dispatch(setMontageExtraRate(Number(montageExtraRateInputRef.current.value)))
+                dispatch(setMontageExtraRate(Math.abs(Number(montageExtraRateInputRef.current.value))))
               }}
             >
               уст.
@@ -78,12 +78,12 @@ function MainMenu (): JSX.Element {
           </p>
           <label aria-label='Тариф обычной почасовой оплаты.' htmlFor="defaultRate">Обычные часы</label>
           <p>
-            <input ref={defaultRateInputRef} id="defaultRate" type="number" placeholder={defaultRate.toString()} />
+            <input ref={defaultRateInputRef} id="defaultRate" type="number" placeholder={defaultRate.toString()} min={0}/>
             <button
               aria-label='Установить тариф'
               type="button"
               onClick={() => {
-                dispatch(setDefaultRate(Number(defaultRateInputRef.current.value)))
+                dispatch(setDefaultRate(Math.abs(Number(defaultRateInputRef.current.value))))
               }}
             >
               уст.
@@ -92,12 +92,12 @@ function MainMenu (): JSX.Element {
           </p>
           <label aria-label='Тариф за обычную переработку.' htmlFor="extraRate">Переработка</label>
           <p>
-            <input ref={extraRateInputRef} id="extraRate" type="number" placeholder={extraRate.toString()} />
+            <input ref={extraRateInputRef} id="extraRate" type="number" placeholder={extraRate.toString()} min={0}/>
             <button
               aria-label='Установить тариф'
               type="button"
               onClick={() => {
-                dispatch(setExtraRate(Number(extraRateInputRef.current.value)))
+                dispatch(setExtraRate(Math.abs(Number(extraRateInputRef.current.value))))
               }}
             >
               уст.
@@ -107,12 +107,12 @@ function MainMenu (): JSX.Element {
 
           <label aria-label='Тариф почасовой оплаты за простой.' htmlFor="pauseRate">Простой</label>
           <p>
-            <input ref={pauseRateInputRef} id="pauseRate" type="number" placeholder={pauseRate.toString()} />
+            <input ref={pauseRateInputRef} id="pauseRate" type="number" placeholder={pauseRate.toString()} min={0}/>
             <button
               aria-label='Установить тариф'
               type="button"
               onClick={() => {
-                dispatch(setPauseRate(Number(pauseRateInputRef.current.value)))
+                dispatch(setPauseRate(Math.abs(Number(pauseRateInputRef.current.value))))
               }}
             >
               уст.
@@ -121,12 +121,12 @@ function MainMenu (): JSX.Element {
           </p>
           <label aria-label='Тариф больничного дня за сутки в процентах от рабочего дня.' htmlFor="sickRate">Больничный</label>
           <p>
-            <input ref={sickRateInputRef} id="sickRate" type="number" placeholder={sickRate.toString() + ' %'} />
+            <input min={0} ref={sickRateInputRef} id="sickRate" type="number" placeholder={sickRate.toString() + ' %'} />
             <button
               aria-label='Установить тариф'
               type="button"
               onClick={() => {
-                dispatch(setSickRate(Number(sickRateInputRef.current.value)))
+                dispatch(setSickRate(Math.abs(Number(sickRateInputRef.current.value))))
               }}
             >
               уст.
