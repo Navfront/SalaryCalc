@@ -4,6 +4,7 @@ import { DefaultThemeType } from './../../theme/defaultTheme'
 export const StyledMainMenuLayout = styled.div`
   display: none;
   position: absolute;
+  height: 700px;
   right: -20px;
   top: 70px;
   margin-left: auto;
@@ -13,15 +14,29 @@ export const StyledMainMenuLayout = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   transition: ease 0.3s;
   background-color: ${({ theme }: DefaultThemeType) => (theme?.colors.bgLAccent)};
-  
+
+  @media (max-height: 768px) {
+    height: 420px;
+  }
+  @media (max-height: 500px) {
+    height: 300px;
+  }
 
   form {
+    height: 100%;
     font-family: inherit;
   }
 
   fieldset {
     font-size: 20px;
     padding: 11px;
+
+    @media (max-height: 768px) {
+    height: 77%;
+  }
+  @media (max-height: 500px) {
+    height: 67%;
+  }
   }
   fieldset > p {
     margin-top: 5px;
@@ -60,4 +75,12 @@ export const StyledMainMenuTitle = styled.p`
   font-weight: 600;
   text-align: center;
   font-family: inherit;
+`
+
+export const StyledScrollable = styled.div`
+  height: 100%;
+
+  @media (max-height: 768px) {
+    overflow-y: scroll;
+  }
 `

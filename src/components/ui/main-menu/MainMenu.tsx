@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../../redux/reduxHooks'
-import { StyledMainMenuLayout, StyledMainMenuTitle } from './styled'
+import { StyledMainMenuLayout, StyledMainMenuTitle, StyledScrollable } from './styled'
 import { useAppDispatch } from './../../../redux/reduxHooks'
 import React, { useRef, MutableRefObject, useEffect } from 'react'
 import { setDefaultRate, setExtraRate, setMontageExtraRate, setMontageRate, setPauseRate, setSickRate } from '../../../redux/slices/rates-slice'
@@ -46,8 +46,10 @@ function MainMenu (): JSX.Element {
           event.preventDefault()
         }}
       >
-        <fieldset>
-          <legend>Тарифы</legend>
+      <fieldset>
+      <legend>Тарифы</legend>
+        <StyledScrollable>
+
           <label aria-label='Почасовой тариф за монтаж.' htmlFor="montageRate">Монтаж часы</label>
           <p>
           <input ref={montageRateInputRef} id="montageRate" type="number" placeholder={montageRate.toString()} min={0} />
@@ -133,6 +135,7 @@ function MainMenu (): JSX.Element {
             </button>
             <span>{(!Number.isNaN(sickRate)) ? `${sickRate}%` : 'загрузка..'}</span>
           </p>
+          </StyledScrollable>
         </fieldset>
       </form>
     </StyledMainMenuLayout>
