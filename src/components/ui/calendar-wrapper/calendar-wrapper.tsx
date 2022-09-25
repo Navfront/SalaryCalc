@@ -14,7 +14,7 @@ export const CalendarWrapper = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const filter = useAppSelector(state => state.app.monthFilter)
   const dayDataInstance = new DaysDataGenerator()
-  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState('')
 
   const cellClickHandler = (event: MouseEvent): void => {
     const target = event.target as HTMLElement
@@ -40,14 +40,20 @@ export const CalendarWrapper = (): JSX.Element => {
 
   useEffect(() => {
     const currentYear = dayjs().year().toString()
-    if (localStorage.getItem(`persist:${currentYear}`) === null) {
-      setIsLoading(prev => !prev)
+    const localData = localStorage.getItem(`holidays-${currentYear}`)
+    if (localData === null || !(/[0-9]/gi.test(localData))) {
+      setMessage('Загрузка...')
       dayDataInstance.getData().then(data => {
-        setIsLoading(false)
-        dispatch(resetCalendar(data))
-      }).catch((e) => {
-        console.log(e)
-        setIsLoading(false)
+        if (Array.isArray(data)) {
+          setMessage('')
+          dispatch(resetCalendar(data))
+        } else {
+          setMessage(data)
+          console.log('message: ', data)
+        }
+      }).catch((e: string) => {
+        setMessage(e)
+        console.log('err', e)
       })
     }
 
@@ -72,7 +78,7 @@ export const CalendarWrapper = (): JSX.Element => {
 
   return (
     <>
-      {isLoading ? <p>Подгружаем календарь на {dayjs().year()} год...</p> : ''}
+      {(message.length !== 0) ? <p >{String(message)}</p> : ''}
                 {calendar.map((item, index) => {
                   if (canIRender(index)) {
                     return (<WorkCalendar

@@ -1,8 +1,5 @@
 import dayjs from 'dayjs'
-// import moment from 'moment'
-
 import { YearType } from '../types/calendar'
-
 export default class DaysDataGenerator {
   async getData (): Promise<YearType> {
     const year = new Date().getFullYear()
@@ -22,7 +19,9 @@ export default class DaysDataGenerator {
       return localData
     } else {
       const fetchData = await this._getHolidaysFetch(year)
-      localStorage.setItem(localName, fetchData)
+      if (typeof fetchData === 'string' && /[0-9]/gi.test(fetchData)) {
+        localStorage.setItem(localName, fetchData)
+      }
       return fetchData
     }
   }

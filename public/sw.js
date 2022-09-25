@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'salary-calc'
-const CACHE_VER = 'v7'
+const CACHE_VER = 'v8'
 const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VER}`
 
 self.addEventListener('install', (evt) => {
