@@ -1,4 +1,4 @@
-# **SalaryCalc**: https://www.salarycalc.ru
+# **SalaryCalc**: https://salarycalc.navfront.ru
 
 
 
